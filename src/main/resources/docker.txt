@@ -1,0 +1,7 @@
+docker run -p 389:389 -p 636:636 --name openldap-container --hostname localhost --env LDAP_ORGANISATION="My Company" --env LDAP_DOMAIN="ahmetokay" --env LDAP_ADMIN_PASSWORD="admin" --env LDAP_BASE_DN="dc=ahmetokay" --detach osixia/openldap:1.4.0
+
+docker exec openldap-container ldapsearch -x -H ldap://localhost -b dc=ahmetokay -D "cn=admin,dc=ahmetokay" -w admin
+
+docker exec openldap-container ldapadd -x -D "cn=admin,dc=ahmetokay" -w admin -f /container/service/slapd/assets/test/new-user2.ldif -H ldap://localhost -ZZ
+
+docker exec -it openldap-container bash		ile rename yapılacak
